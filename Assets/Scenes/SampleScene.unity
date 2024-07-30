@@ -572,7 +572,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 800707931}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1016,6 +1016,10 @@ PrefabInstance:
       propertyPath: weponObj
       value: 
       objectReference: {fileID: 1204515357}
+    - target: {fileID: 289180114155502802, guid: 6fc6977a1e09e9c4fbb35dd3d3bc22c3, type: 3}
+      propertyPath: shotLinePrefab
+      value: 
+      objectReference: {fileID: 6894325811670753601, guid: e8338fb93f6cf974cb03574e7f48cf5d, type: 3}
     - target: {fileID: 3171278020500956137, guid: 6fc6977a1e09e9c4fbb35dd3d3bc22c3, type: 3}
       propertyPath: m_Constraints
       value: 112

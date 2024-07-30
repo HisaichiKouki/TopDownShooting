@@ -15,6 +15,7 @@ public class PlayerScript : MonoBehaviour
     RaycastHit hitObj;
     float shotCoolTime;
 
+   public  LineRendererScript shotLinePrefab;
     public void SetIsGetWepon()
     {
         isGetWepon = true;
@@ -95,6 +96,9 @@ public class PlayerScript : MonoBehaviour
                     Debug.Log("HitButton");
                    
                 }
+
+                LineRendererScript shotLine = Instantiate(shotLinePrefab);
+                shotLine.SetStart(weponObj.transform.position, hitObj.point);
             }
         }
         
