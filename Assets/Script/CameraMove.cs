@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class CameraMove : MonoBehaviour
 {
@@ -10,28 +11,35 @@ public class CameraMove : MonoBehaviour
     Vector3 length;
     Vector3 newPosition;
     Vector3 currentPos;
+    public float easeT;
+    public float raito;
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.Find("Player").transform;
-        rayCastScript=GetComponent<RayCastScript>();
-        currentPos= transform.position;
+        rayCastScript = GetComponent<RayCastScript>();
+        currentPos = transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //ray = rayCastScript.hit.point;
-        //length = player.position- ray;
+        ray = rayCastScript.hit.point;
+
+        length = player.position - ray;
+        length *= raito;
+        newPosition = player.position - length;
         //if (length.magnitude<5)
         //{
         //    newPosition = player.position - length;
-           
+
         //}
-        currentPos.x= player.position.x;
-        currentPos.z= player.position.z-5;
+        currentPos.x = (1.0f - easeT) * currentPos.x + newPosition.x * easeT;
+        currentPos.z = (1.0f - easeT) * currentPos.z + (newPosition.z - 5) * easeT;
+        //currentPos.x= newPosition.x;
+        //currentPos.z= newPosition.z-5;
         this.transform.position = currentPos;
-        this.transform.LookAt(player.position);
+        //this.transform.LookAt(player.position);
 
 
 
