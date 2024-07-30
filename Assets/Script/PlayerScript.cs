@@ -13,9 +13,10 @@ public class PlayerScript : MonoBehaviour
     bool isGetWepon;
     Ray weponRay;
     RaycastHit hitObj;
+    [SerializeField,Header("ŽËŒ‚ŠÔŠu")] float initShotCoolTime;
     float shotCoolTime;
+    public LineRendererScript shotLinePrefab;
 
-   public  LineRendererScript shotLinePrefab;
     public void SetIsGetWepon()
     {
         isGetWepon = true;
@@ -85,7 +86,7 @@ public class PlayerScript : MonoBehaviour
         weponRay.direction = weponObj.transform.forward;
         if (Input.GetMouseButton(0))
         {
-            shotCoolTime = 1f;
+            shotCoolTime = initShotCoolTime;
             Debug.Log("Shot");
 
             if (Physics.Raycast(weponRay, out hitObj, 1000.0f))
