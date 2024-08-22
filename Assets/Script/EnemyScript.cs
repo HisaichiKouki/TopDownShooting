@@ -74,9 +74,24 @@ public class EnemyScript : MonoBehaviour
         if(!isLookOutOver) { return; }
         transform.Rotate(0f, currentLookSpeed * Time.deltaTime, 0f);
         currentLookOutTime += Time.deltaTime;
+        if (Physics.Raycast(enemyEyeRay, out enemyEyeHitObj, 1000.0f))
+        {
+            if (enemyEyeHitObj.transform.tag == "Player")
+            {
+                isSerching = false;
+                isLookOutOver = false;
+                isShooting = true;
+                spline.Pause();
+                target = enemyEyeHitObj.transform.gameObject;
+                currentLookOutTime = 0;
+                currentLookSpeed = lookSpeed;
+                lookOutNum = 1;
+                return;
+            }
+        }
         if (currentLookOutTime > lookOutTime* lookOutNum / 3)
         {
-            currentLookSpeed /= -0.7f;
+            currentLookSpeed *= -0.7f;
             lookOutNum++;
         }
         if(currentLookOutTime> lookOutTime)

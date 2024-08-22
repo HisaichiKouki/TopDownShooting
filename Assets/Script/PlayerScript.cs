@@ -16,7 +16,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField,Header("ŽËŒ‚ŠÔŠu")] float initShotCoolTime;
     float shotCoolTime;
     public LineRendererScript shotLinePrefab;
-
+    GameManager gameManager;
     public void SetIsGetWepon()
     {
         isGetWepon = true;
@@ -28,15 +28,24 @@ public class PlayerScript : MonoBehaviour
         mRigidBody = GetComponent<Rigidbody>();
         rayScript = GetComponent<RayCastScript>();
         weponObj.SetActive(false);
+        gameManager=FindAnyObjectByType<GameManager>(); 
     }
 
     // Update is called once per frame
     void Update()
     {
-        Move();
-        Lock();
-        WeponLock();
-        WeponShot();
+        if (!gameManager.GetGameClear())
+        {
+            Move();
+            Lock();
+            WeponLock();
+            WeponShot();
+        }
+        else
+        {
+            mRigidBody.velocity = new Vector3(0, 0, speed);
+        }
+        
     }
     void Move()
     {
@@ -69,7 +78,7 @@ public class PlayerScript : MonoBehaviour
     {
         if (!isGetWepon) { return; }
         Vector3 newVector = rayScript.hit.point;
-        newVector.y = 1;
+        newVector.y = 1.05f;
         weponObj.transform.LookAt(newVector);
     }
 
@@ -95,7 +104,11 @@ public class PlayerScript : MonoBehaviour
                 {
                     hitObj.transform.GetComponent<SelfDestroy>().Destroy();
                     Debug.Log("HitButton");
-                   
+
+                }
+                else if (hitObj.transform.tag =="Enemy")
+                {
+                    hitObj.transform.GetComponent<EnemyHP>().Damage();
                 }
 
                 LineRendererScript shotLine = Instantiate(shotLinePrefab);
