@@ -37,8 +37,8 @@ public class PlayerScript : MonoBehaviour
         if (!gameManager.GetGameClear())
         {
             Move();
-            Lock();
-            WeponLock();
+            Look();
+            WeponLook();
             WeponShot();
         }
         else
@@ -67,14 +67,14 @@ public class PlayerScript : MonoBehaviour
         }
         mRigidBody.velocity = Vector3.ClampMagnitude(mRigidBody.velocity, maxSpeed);
     }
-    void Lock()
+    void Look()
     {
         Vector3 newVector = rayScript.hit.point;
         newVector.y = 1;
         transform.LookAt(newVector);
         //transform.rotation = new Quaternion(0, transform.rotation.y, 0, 1);
     }
-    void WeponLock()
+    void WeponLook()
     {
         if (!isGetWepon) { return; }
         Vector3 newVector = rayScript.hit.point;

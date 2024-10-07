@@ -12,7 +12,7 @@ public class CameraMove : MonoBehaviour
     Vector3 newPosition;
     Vector3 currentPos;
     public float easeT;
-    public float raito;
+    public float ratio;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,7 +27,7 @@ public class CameraMove : MonoBehaviour
         ray = rayCastScript.hit.point;
 
         length = player.position - ray;
-        length *= raito;
+        length *= ratio;
         newPosition = player.position - length;
         //if (length.magnitude<5)
         //{
